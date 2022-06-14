@@ -10,7 +10,7 @@ from cryptography.hazmat.primitives.asymmetric import ec, padding, rsa
 from cryptography.hazmat.primitives.serialization import Encoding
 from cryptography.x509 import Certificate, NameOID
 
-from pyasice import Container, XmlSignature
+from pyasice import XAdES, XmlSignature
 from pyasice.ocsp import OCSP
 
 
@@ -108,8 +108,8 @@ def signed_container_file():
 
 
 @pytest.fixture()
-def signed_container(signed_container_file) -> Container:
-    return Container(signed_container_file)
+def signed_container(signed_container_file) -> XAdES:
+    return XAdES(signed_container_file)
 
 
 @pytest.fixture()

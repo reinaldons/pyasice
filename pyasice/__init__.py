@@ -1,14 +1,15 @@
 __all__ = [
-    "Container",
+    "CAdES",
     "Error",
     "PyAsiceError",
     "SignatureVerificationError",
     "XmlSignature",
+    "XAdES",
     "finalize_signature",
     "verify",
 ]
 
-from .container import Container
+from .container import CAdES, XAdES
 from .exceptions import PyAsiceError, SignatureVerificationError
 from .signature_verifier import verify
 from .utils import finalize_signature

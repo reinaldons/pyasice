@@ -34,23 +34,23 @@ which are based on the XAdES/eIDAS stack.
 
 Create a new container:
 ```python
-from pyasice import Container, XmlSignature
+from pyasice import XAdES, XmlSignature
 
 xmlsig = XmlSignature.create().add_document('test.txt', b'Test data', 'application/pdf')
 # ... here goes the signing, confirming and timestamping part ... 
 
-container = Container()
+container = XAdES()
 container\
     .add_file('test.txt', b'Test data', 'application/pdf')\
     .add_signature(xmlsig)\
     .save('test.asice')
 
 # container is a context manager:
-with Container() as container:
+with XAdES() as container:
     container.add_file('a', b'b', 'c').save('path/to')
 
 # Open an existing container:
-container = Container.open('test.asice')
+container = XAdES.open('test.asice')
 
 # Verify container. Raises pyasice.SignatureVerificationError on failure
 container.verify_signatures()
@@ -67,12 +67,12 @@ for xmlsig in container.iter_signatures():
 ### Signing Flow Utilities
 
 ```python
-from pyasice import Container, finalize_signature
+from pyasice import XAdES, finalize_signature
 
 # get this from an external service, ID card, or elsewhere
 user_certificate = b'user certificate in DER/PEM format'
 
-container = Container()
+container = XAdES()
 container.add_file("test.txt", b'Test', "text/plain")
 
 xml_sig = container.prepare_signature(user_certificate)
